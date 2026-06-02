@@ -1,12 +1,17 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "./ui/button"
-import { Input } from "./ui/input"
-import { Label } from "./ui/label"
+import { useState } from "react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
 
 const PhoneIcon = () => (
-  <svg className="h-6 w-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <svg
+    className="h-6 w-6 text-accent"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -14,10 +19,15 @@ const PhoneIcon = () => (
       d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
     />
   </svg>
-)
+);
 
 const MailIcon = () => (
-  <svg className="h-6 w-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <svg
+    className="h-6 w-6 text-accent"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -25,25 +35,45 @@ const MailIcon = () => (
       d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
     />
   </svg>
-)
+);
 
 const MapPinIcon = () => (
-  <svg className="h-6 w-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <svg
+    className="h-6 w-6 text-accent"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}
       d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
     />
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+    />
   </svg>
-)
+);
 
 const SendIcon = () => (
-  <svg className="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+  <svg
+    className="ml-2 h-4 w-4"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+    />
   </svg>
-)
+);
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -53,31 +83,59 @@ export function Contact() {
     loanType: "",
     amount: "",
     message: "",
-  })
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log("Form submitted:", formData)
-    alert("Thank you for your interest! We'll contact you soon.")
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      loanType: "",
-      amount: "",
-      message: "",
-    })
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:8080/api/inquiries", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fullName: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          loanType: formData.loanType,
+          loanAmount: formData.amount,
+          message: formData.message,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit");
+      }
+
+      alert("Application submitted successfully!");
+
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        loanType: "",
+        amount: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong");
+    }
+  };
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    })
-  }
+    });
+  };
 
   return (
-    <section id="contact" className="py-16 sm:py-24 lg:py-32 relative overflow-hidden">
+    <section
+      id="contact"
+      className="py-16 sm:py-24 lg:py-32 relative overflow-hidden"
+    >
       <div className="absolute top-0 right-0 w-64 h-64 sm:w-96 sm:h-96 bg-accent/5 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 left-0 w-64 h-64 sm:w-96 sm:h-96 bg-primary/5 rounded-full blur-3xl"></div>
 
@@ -87,7 +145,8 @@ export function Contact() {
             Get in Touch
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto font-light leading-relaxed">
-            Ready to take the next step? Contact us today for a free consultation
+            Ready to take the next step? Contact us today for a free
+            consultation
           </p>
         </div>
 
@@ -98,9 +157,15 @@ export function Contact() {
                 <PhoneIcon />
               </div>
               <div>
-                <h3 className="font-semibold text-base sm:text-lg text-foreground mb-1 sm:mb-2">Phone</h3>
-                <p className="text-muted-foreground text-sm sm:text-base">+1 (555) 123-4567</p>
-                <p className="text-xs sm:text-sm text-muted-foreground mt-1">Mon-Fri 9am-6pm</p>
+                <h3 className="font-semibold text-base sm:text-lg text-foreground mb-1 sm:mb-2">
+                  Phone
+                </h3>
+                <p className="text-muted-foreground text-sm sm:text-base">
+                  +1 (555) 123-4567
+                </p>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+                  Mon-Fri 9am-6pm
+                </p>
               </div>
             </div>
 
@@ -109,9 +174,15 @@ export function Contact() {
                 <MailIcon />
               </div>
               <div>
-                <h3 className="font-semibold text-base sm:text-lg text-foreground mb-1 sm:mb-2">Email</h3>
-                <p className="text-muted-foreground text-sm sm:text-base">info@rainfinancial.com</p>
-                <p className="text-xs sm:text-sm text-muted-foreground mt-1">We&apos;ll respond within 24 hours</p>
+                <h3 className="font-semibold text-base sm:text-lg text-foreground mb-1 sm:mb-2">
+                  Email
+                </h3>
+                <p className="text-muted-foreground text-sm sm:text-base">
+                  info@rainfinancial.com
+                </p>
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+                  We&apos;ll respond within 24 hours
+                </p>
               </div>
             </div>
 
@@ -120,9 +191,15 @@ export function Contact() {
                 <MapPinIcon />
               </div>
               <div>
-                <h3 className="font-semibold text-base sm:text-lg text-foreground mb-1 sm:mb-2">Office</h3>
-                <p className="text-muted-foreground text-sm sm:text-base">123 Financial District</p>
-                <p className="text-muted-foreground text-sm sm:text-base">New York, NY 10004</p>
+                <h3 className="font-semibold text-base sm:text-lg text-foreground mb-1 sm:mb-2">
+                  Office
+                </h3>
+                <p className="text-muted-foreground text-sm sm:text-base">
+                  123 Financial District
+                </p>
+                <p className="text-muted-foreground text-sm sm:text-base">
+                  New York, NY 10004
+                </p>
               </div>
             </div>
           </div>
@@ -243,5 +320,5 @@ export function Contact() {
         </div>
       </div>
     </section>
-  )
+  );
 }
