@@ -134,7 +134,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="py-16 sm:py-24 lg:py-32 relative overflow-hidden"
+      className="scroll-mt-8 py-8 sm:py-8 lg:py-10 relative overflow-hidden"
     >
       <div className="absolute top-0 right-0 w-64 h-64 sm:w-96 sm:h-96 bg-accent/5 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 left-0 w-64 h-64 sm:w-96 sm:h-96 bg-primary/5 rounded-full blur-3xl"></div>
@@ -161,10 +161,10 @@ export function Contact() {
                   Phone
                 </h3>
                 <p className="text-muted-foreground text-sm sm:text-base">
-                  +1 (555) 123-4567
+                  +918655655971
                 </p>
                 <p className="text-xs sm:text-sm text-muted-foreground mt-1">
-                  Mon-Fri 9am-6pm
+                  Mon-Sat 9am-6pm
                 </p>
               </div>
             </div>
@@ -195,10 +195,10 @@ export function Contact() {
                   Office
                 </h3>
                 <p className="text-muted-foreground text-sm sm:text-base">
-                  123 Financial District
+                  Haware fantasia, Sector 30A Vashi
                 </p>
                 <p className="text-muted-foreground text-sm sm:text-base">
-                  New York, NY 10004
+                  Navi Mumbai, Maharashtra 400705
                 </p>
               </div>
             </div>
@@ -217,7 +217,7 @@ export function Contact() {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="John Doe"
+                placeholder="Enter Your Full Name"
                 className="h-12 rounded-xl border-border focus:border-accent"
                 required
               />
@@ -234,7 +234,7 @@ export function Contact() {
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="john@example.com"
+                  placeholder="Enter Your Email"
                   className="h-12 rounded-xl border-border focus:border-accent"
                   required
                 />
@@ -249,7 +249,7 @@ export function Contact() {
                   type="tel"
                   value={formData.phone}
                   onChange={handleChange}
-                  placeholder="+1 (555) 000-0000"
+                  placeholder="Enter Your Phone Number"
                   className="h-12 rounded-xl border-border focus:border-accent"
                   required
                 />
@@ -287,7 +287,7 @@ export function Contact() {
                   type="text"
                   value={formData.amount}
                   onChange={handleChange}
-                  placeholder="$50,000"
+                  placeholder="Enter Loan Amount"
                   className="h-12 rounded-xl border-border focus:border-accent"
                   required
                 />
